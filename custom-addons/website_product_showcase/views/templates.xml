@@ -1,0 +1,77 @@
+<odoo>
+  <!-- Custom snippet: List all testimonials -->
+  <template id="template_list_all_testimonials" name="All Testimonials">
+    <section class="product-showcase ms-5 me-5 template_list_all_testimonials">
+      <!-- JS GOES HERE -->
+    </section>
+  </template>
+  <!-- Register Custom snippet: List all testimonials -->
+  <template id="template_list_all_testimonials_options" name="All Testimonials Options" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+      <t t-snippet="website_product_showcase.template_list_all_testimonials" t-thumbnail="/website_product_showcase/static/src/img/s_testimonials_thumb_all.png"/>
+    </xpath>
+  </template>
+
+  <!-- Custom snippet: List testimonials by TAG -->
+  <template id="template_testimonials_by_tag" name="Testimonials By Tag">
+    <section class="product-showcase ms-5 me-5 template_testimonials_by_tag">
+      <!-- JS GOES HERE -->
+    </section>
+  </template>
+  <!-- Register Custom snippet: List testimonials by TAG -->
+  <template id="template_testimonials_by_tag_options" name="Testimonials By Tag Options" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+      <t t-snippet="website_product_showcase.template_testimonials_by_tag" t-thumbnail="/website_product_showcase/static/src/img/s_testimonials_thumb_tag.png"/>
+    </xpath>
+    <!-- Register Custom snippet OPTIONS: List testimonials by TAG -->
+    <xpath expr="//div[@id='snippet_options']" position="inside">
+      <div data-selector=".template_testimonials_by_tag">
+        <we-many2many string="Tags" data-name="tag_category_opt" data-attribute-name="showTheseTags" data-no-preview="true" data-model="testimonial.tag" data-allow-delete="false" data-fakem2m="true" data-select-data-attribute=""/>
+      </div>
+    </xpath>
+  </template>
+
+  <!-- Custom snippet: List single testimonial -->
+  <template id="template_single_testimonial" name="Single Testimonial">
+    <section class="template_single_testimonial">
+      <!-- JS GOES HERE -->
+    </section>
+  </template>
+  <!-- Register Custom snippet: List single testimonial -->
+  <template id="template_single_testimonial_options" name="Template Single Testimonial Options" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+      <t t-snippet="website_product_showcase.template_single_testimonial" t-thumbnail="/website_product_showcase/static/src/img/s_testimonials_thumb_single.png"/>
+    </xpath>
+    <!-- Register Custom snippet OPTIONS: List single testimonial -->
+    <xpath expr="//div[@id='snippet_options']" position="inside">
+      <div data-selector=".template_single_testimonial">
+        <we-many2one string="Testimonial" data-name="testimonial_opt" data-attribute-name="showTestimonial" data-no-preview="true" data-model="testimonial" data-order="id asc" data-allow-delete="false" data-fakem2m="true" data-select-data-attribute=""/>
+      </div>
+    </xpath>
+  </template>
+
+  <!-- Custom snippet: Showcase -->
+  <template id="template_showcase" name="Showcase">
+    <section class="product-showcase ms-5 me-5 template_showcase">
+      <!-- JS GOES HERE -->
+    </section>
+  </template>
+  <!-- Register Custom snippet: Showcase -->
+  <template id="template_showcase_options" name="Showcase Options" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+      <t t-snippet="website_product_showcase.template_showcase" t-thumbnail="/website_product_showcase/static/src/img/s_testimonials_thumb_showcase.png"/>
+    </xpath>
+  </template>
+
+  <!-- Custom snippet: List all tags and categories (NOT REGISTERED) -->
+  <!--  <template id="template_list_tags" name="Tags and Categories">
+    <section class="filter-bar bg-black p-4 ms-5 template_list_tags">
+    </section>
+  </template>
+  <template id="template_list_tags_options" name="Tags and Categories Options" inherit_id="website.snippets">
+    <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+      <t t-snippet="website_product_showcase.template_list_tags" t-thumbnail="/website_product_showcase/static/src/img/s_testimonial_thumb.png"/>
+    </xpath>
+  </template> -->
+
+</odoo>

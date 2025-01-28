@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+  <!-- Testimonial Tree View -->
+  <record id="showcase_tree_view" model="ir.ui.view">
+    <field name="name">testimonial.tree</field>
+    <field name="model">testimonial</field>
+    <field name="arch" type="xml">
+      <tree string="Testimonials">
+        <field name="id"/>
+        <field name="name"/>
+        <field name="summary"/>
+        <field name="description" optional="hide"/>
+        <field name="reference_number"/>
+        <field name="guarantee" optional="hide"/>
+        <field name="lead_time" string="Lead Time (days)"/>
+        <field name="media_ids" optional="hide"/>
+        <field name="certification_image" optional="hide"/>
+        <field name="certification_text" optional="hide"/>
+        <field name="customer_id"/>
+        <field name="tags" widget="many2many_tags"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Testimonial Form View -->
+  <record id="showcase_view" model="ir.ui.view">
+    <field name="name">testimonial.form</field>
+    <field name="model">testimonial</field>
+    <field name="arch" type="xml">
+      <form string="Showcase Testimonial">
+        <sheet>
+          <group>
+            <group>
+              <field class="h1 fw-bold mb-2" name="name"/>
+              <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}" can_create="False"/>
+            </group>
+            <group>
+              <field name="summary"/>
+              <field name="description"/>
+              <field name="reference_number"/>
+              <field name="guarantee"/>
+            </group>
+            <group>
+              <field name="date_received" widget="date"/>
+              <field name="date_delivered" widget="date"/>
+              <field name="lead_time" readonly="True"/>
+            </group>
+            <group>
+              <field name="customer_id"/>
+              <field name="customer_permission"/>
+            </group>
+          </group>
+          <notebook>
+            <page string="Images">
+              <div class="o_form_label">
+                <h2>Media Attachments</h2>
+              </div>
+              <group>
+                <field name="media_ids">
+                  <tree>
+                    <field name="image_1920" widget="image"/>
+                    <field name="name"/>
+                  </tree>
+                  <form>
+                    <sheet>
+                      <!-- Show the image in a larger form -->
+                      <field name="image_1920" widget="image"/>
+                      <field name="name"/>
+                    </sheet>
+                  </form>
+                </field>
+              </group>
+            </page>
+            <page string="Certifications">
+              <div class="o_form_label">
+                <h2>Certification Attachments</h2>
+              </div>
+              <group>
+                <field name="certification_image" widget="image"/>
+                <field name="certification_text"/>
+              </group>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Testimonial Views -->
+  <record id="action_testimonial_views" model="ir.actions.act_window">
+    <field name="name">Showcase Testimonial</field>
+    <field name="res_model">testimonial</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Add your first
+      </p>
+      <p>
+        TESTIMONIAL
+      </p>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Tree View -->
+  <record id="showcase_tag_tree_view" model="ir.ui.view">
+    <field name="name">testimonial.tag.tree</field>
+    <field name="model">testimonial.tag</field>
+    <field name="arch" type="xml">
+      <tree string="Testimonial Tags">
+        <field name="name" string="Tag Name"/>
+        <field name="description"/>
+        <field name="category_id" string="Category"/>
+        <field name="testimonial_product_ids" widget="many2many_tags" string="Testimonials"/>
+        <field name="color" widget="color_picker" string="Color" readonly="True"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Form View -->
+  <record id="showcase_tag_form_view" model="ir.ui.view">
+    <field name="name">testimonial.tag.form</field>
+    <field name="model">testimonial.tag</field>
+    <field name="arch" type="xml">
+      <form string="Showcase Tag">
+        <sheet>
+          <group>
+            <field name="name" string="Tag Name"/>
+            <field name="description"/>
+            <field name="category_id"/>
+            <field name="color" widget="color_picker" string="Color" readonly="True"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Views -->
+  <record id="action_testimonial_tag_views" model="ir.actions.act_window">
+    <field name="name">Testimonial Tag</field>
+    <field name="res_model">testimonial.tag</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Add your first
+      </p>
+      <p>
+        TAG
+      </p>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Category Tree View -->
+  <record id="showcase_tag_category_tree_view" model="ir.ui.view">
+    <field name="name">testimonial.tag.category.tree</field>
+    <field name="model">testimonial.tag.category</field>
+    <field name="arch" type="xml">
+      <tree string="Testimonial Tag Categories">
+        <field name="name" string="Tag Category Name"/>
+        <field name="description"/>
+        <field name="color" widget="color_picker" string="Color"/>
+        <field name="tag_ids" widget="many2many_tags"/>
+      </tree>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Category Form View -->
+  <record id="showcase_tag_category_form_view" model="ir.ui.view">
+    <field name="name">testimonial.tag.category.form</field>
+    <field name="model">testimonial.tag.category</field>
+    <field name="arch" type="xml">
+      <form string="Showcase Tag Category">
+        <sheet>
+          <group>
+            <field name="name" string="Tag Category Name"/>
+            <field name="description"/>
+            <field name="color" widget="color_picker" string="Color"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+
+  <!-- Testimonial Tag Category Views -->
+  <record id="action_testimonial_tag_category_views" model="ir.actions.act_window">
+    <field name="name">Testimonial Tag Category</field>
+    <field name="res_model">testimonial.tag.category</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="help" type="html">
+      <p class="o_view_nocontent_smiling_face">
+        Add your first
+      </p>
+      <p>
+        TAG CATEGORY
+      </p>
+    </field>
+  </record>
+
+</odoo>

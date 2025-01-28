@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <!-- List a single Testimonial -->
+  <t t-name="website_product_showcase.snippet_single_testimonial">
+    <div class="d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <div class="text-center">
+        <h3 class="text-uppercase">
+          <t t-out="testimonial.name"/>
+        </h3>
+        <div class="my-4">
+          <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" class="img-fluid" />
+        </div>
+        <div>
+          <p>
+            <strong>
+              <t t-out="testimonial.summary"/>
+            </strong>
+          </p>
+          <t t-out="testimonial.description"/>
+        </div>
+      </div>
+    </div>
+  </t>
+
+  <!-- List All Testimonials -->
+  <t t-name="website_product_showcase.snippet_all_testimonials">
+    <div class="container">
+      <div class="row g-4">
+        <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+          <div class="col-12 col-sm-6 col-lg-4 p-5">
+            <div class="card bg-black text-white border-0 rounded-0">
+              <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" />
+              <div class="card-body bg-black">
+                <p class="card-text glass-effect">
+                  <t t-out="testimonial.summary"/>
+                </p>
+              </div>
+            </div>
+          </div>
+        </t>
+      </div>
+    </div>
+  </t>
+
+  <!-- List Testimonials by Tag -->
+  <t t-name="website_product_showcase.snippet_testimonials_by_tag">
+    <div class="container">
+      <div class="row g-4">
+        <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+          <div class="col-12 col-sm-6 col-lg-4 p-5">
+            <div class="card bg-black text-white border-0 rounded-0">
+              <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" />
+              <div class="card-body bg-black">
+                <p class="card-text glass-effect">
+                  <t t-out="testimonial.summary"/>
+                </p>
+              </div>
+            </div>
+          </div>
+        </t>
+      </div>
+    </div>
+  </t>
+
+  <!-- Showcase -->
+  <t t-name="website_product_showcase.showcase_view">
+    <div class="s_testimonial_search">
+      <div class="container">
+
+        <!-- Search & Filter Section -->
+        <div class="row align-items-center mb-5">
+              <!-- Search Bar -->
+              <div class="col-auto">
+                    <div class="input-group w-100">
+                    <div class="position-relative w-100">
+                        <input type="text" class="form-control text-black bg-transparent border-light rounded-0 ps-5" placeholder="Suchen..."/>
+                        <i class="fa fa-magnifying-glass position-absolute text-black" style="top: 50%; left: 15px; transform: translateY(-50%);"/>
+                    </div>
+                    </div>
+                </div>
+
+              <!-- Dropdown Categories -->
+              <t t-foreach="categories" t-as="category" t-key="category.id">
+                <div class="col-auto dropdown">
+                    <button class="btn bg-transparent text-black border-light rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <t t-esc="category.name"/>
+                    </button>
+                    <ul class="dropdown-menu bg-white border-light" aria-labelledby="dropdownMenuButton1">
+                      <t t-foreach="category.tag_ids" t-as="tag" t-key="tag.id">
+                        <li>
+                          <a t-att-data-tag="tag.id" class="dropdown-item text-blac filter-option" href="#" checked="true">
+                            <t t-esc="tag.name"/>
+                          </a>
+                        </li>
+                      </t>
+                    </ul>
+                </div>
+              </t>
+
+              <!-- Link for Filter löschen -->
+              <div class="col-auto">
+                <a href="#" class="text-black link-underline">Filter löschen</a>
+              </div>
+
+              <!-- Buttons for Layout -->
+              <div class="col-auto">
+                <button id="list-view-btn" class="btn bg-transparent text-black rounded-0" title="List View">
+                  <i class="fa-solid fa-list"></i>
+                </button>
+                <button id="grid-view-btn" class="btn bg-transparent text-black rounded-0" title="Grid View">
+                  <i class="fa-solid fa-grip"></i>
+                </button>
+                <button class="btn bg-transparent text-black rounded-0">
+                  <i class="fa-solid fa-map-marker"></i>
+                </button>
+              </div>
+
+              <!-- Sorting Dropdown -->
+              <div class="col-auto ms-auto mt-5">
+                <button class="btn bg-transparent text-black rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sortieren nach
+                </button>
+                <ul class="dropdown-menu bg-black border-light" aria-labelledby="dropdownMenuButton5">
+                  <li><a class="dropdown-item text-white sort-option" href="#" data-sort="name-asc">Name (A - Z)</a></li>
+                  <li><a class="dropdown-item text-white sort-option" href="#" data-sort="date-newest">Neueste</a></li>
+                  <li><a class="dropdown-item text-white sort-option" href="#" data-sort="lead-time">Lead Time</a></li>
+                  <li><a class="dropdown-item text-white sort-option" href="#" data-sort="guarantee">Guarantee</a></li>
+                </ul>
+              </div>
+        </div>
+
+        <!-- Grid Layout Testimonials -->
+        <div class="row d-block" id="shuffle-container">
+          <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+            <div class="testimonial-item col-md-4 col-sm-6 col-12 "
+                 t-att-data-tags="testimonial.tags"
+                 t-att-data-name="testimonial.name"
+                 t-att-data-lead-time="testimonial.lead_time"
+                 t-att-data-guarantee="testimonial.guarantee"
+                 t-att-data-date="testimonial.date">
+              <div class="card bg-black text-white border-0 rounded-0 m-2 mb-5">
+                <img t-att-alt="testimonial.name" t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" class="card-img-top"/>
+                <a href="#" class="stretched-link" data-bs-toggle="modal" t-attf-data-bs-target="#testimonial#{testimonial.id}"></a>
+
+                <!-- Testimonial Name and Summary -->
+                <div class="card-body bg-black">
+                  <h4>
+                    <t t-esc="testimonial.name"/>
+                  </h4>
+                  <p class="card-text glass-effect">
+                    <t t-esc="testimonial.summary"/>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+
+        <!-- List Layout Testimonials -->
+        <ul class="list-group list-group-light d-none w-100" id="list-container">
+          <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+            <li class="list-group-item d-flex justify-content-between align-items-center w-100" t-att-data-tags="testimonial.tags">
+              <div class="d-flex align-items-center">
+                <img t-att-alt="testimonial.name" t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" class="img-fluid w-50 h-50"/>
+                <a href="#" class="stretched-link" data-bs-toggle="modal" t-attf-data-bs-target="#testimonial#{testimonial.id}"></a>
+
+                <!-- Testimonial Name and Summary -->
+                <div class="ms-3">
+                  <p class="fw-bold mb-1">
+                    <t t-esc="testimonial.name" />
+                  </p>
+                  <p class="text-muted mb-0">
+                    <t t-esc="testimonial.summary" />
+                  </p>
+                </div>
+              </div>
+            </li>
+          </t>
+        </ul>
+
+        <!-- Mehr anzeigen Button -->
+        <section class="text-center mt-5">
+          <button class="btn bg-transparent text-black border-light rounded-0">Mehr anzeigen</button>
+        </section>
+
+        <div class="col-md-8 js-shuffle-sizer"></div>
+      </div>
+    </div>
+
+    <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+      <div t-attf-id="testimonial#{testimonial.id}" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" t-att-id="'testimonialModalLabel%s' % testimonial.id">
+                Testimonial Details</h5>
+              <a class="close" data-bs-dismiss="modal" aria-label="Close">
+                <i class="fa fa-close"/>
+              </a>
+            </div>
+            <div class="modal-body">
+              <h5 class="card-title text-primary">
+                <t t-esc="testimonial.name"/>
+              </h5>
+              <p class="card-text">
+                <t t-esc="testimonial.description"/>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </t>
+
+  <!-- List Tags -->
+  <!-- <t t-name="website_product_showcase.snippet_all_tags">
+    <div class="container p-5">
+      <div class="row d-flex align-items-center flex-wrap">
+        <div class="dropdown me-3 mb-3 mb-md-0">
+          <t t-foreach="categories" t-as="category" t-key="category.id">
+            <button class="btn bg-black text-white border-light rounded-0 dropdown-toggle m-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <t t-out="category.name"/>
+            </button>
+            <ul class="dropdown-menu bg-black border-light" aria-labelledby="dropdownMenuButton1">
+              <t t-foreach="category.tag_ids" t-as="tag" t-key="tag.id">
+                <li>
+                  <a class="dropdown-item text-white" href="#">
+                    <t t-out="tag.name"/>
+                  </a>
+                </li>
+              </t>
+            </ul>
+          </t>
+        </div>
+      </div>
+    </div>
+  </t> -->
+
+</templates>
