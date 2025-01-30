@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+  <!-- List a single Testimonial -->
+  <t t-name="website_product_showcase.snippet_single_testimonial">
+    <div class="d-flex flex-column justify-content-center align-items-center min-vh-100">
+      <div class="text-center">
+        <h3 class="text-uppercase">
+          <t t-out="testimonial.name"/>
+        </h3>
+        <div class="my-4">
+          <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" class="img-fluid" />
+        </div>
+        <div>
+          <p>
+            <strong>
+              <t t-out="testimonial.summary"/>
+            </strong>
+          </p>
+          <t t-out="testimonial.description"/>
+        </div>
+      </div>
+    </div>
+  </t>
+
+  <!-- List All Testimonials -->
+  <t t-name="website_product_showcase.snippet_all_testimonials">
+    <div class="container">
+      <div class="row g-4">
+        <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+          <div class="col-12 col-sm-6 col-lg-4 p-5">
+            <div class="card bg-black text-white border-0 rounded-0">
+              <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" />
+              <div class="card-body bg-black">
+                <p class="card-text glass-effect">
+                  <t t-out="testimonial.summary"/>
+                </p>
+              </div>
+            </div>
+          </div>
+        </t>
+      </div>
+    </div>
+  </t>
+
+  <!-- List Testimonials by Tag -->
+  <t t-name="website_product_showcase.snippet_testimonials_by_tag">
+    <div class="container">
+      <div class="row g-4">
+        <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+          <div class="col-12 col-sm-6 col-lg-4 p-5">
+            <div class="card bg-black text-white border-0 rounded-0">
+              <img t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" t-att-alt="testimonial.name" />
+            </div>
+          </div>
+        </t>
+      </div>
+    </div>
+  </t>
+
+  <!-- Showcase -->
+  <t t-name="website_product_showcase.showcase_view">
+    <div class="s_testimonial_search">
+      <div class="container">
+
+        <!-- Search & Filter Section -->
+        <div class="row align-items-center mb-5">
+              <!-- Search Bar -->
+              <div class="col-auto">
+                    <div class="input-group w-100">
+                    <div class="position-relative w-100">
+                        <input type="text" class="form-control text-light bg-transparent border-light rounded-0 ps-5" placeholder="Suchen..."/>
+                        <i class="fa fa-magnifying-glass position-absolute text-light" style="top: 50%; left: 15px; transform: translateY(-50%);"/>
+                    </div>
+                    </div>
+                </div>
+
+              <!-- Dropdown Categories -->
+              <t t-foreach="categories" t-as="category" t-key="category.id">
+                <div class="col-auto dropdown">
+                    <button class="btn bg-transparent text-light border-light rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                      <t t-esc="category.name"/>
+                    </button>
+                    <ul class="dropdown-menu bg-white border-light" aria-labelledby="dropdownMenuButton1">
+                      <t t-foreach="category.tag_ids" t-as="tag" t-key="tag.id">
+                        <li>
+                          <a t-att-data-tag="tag.id" class="dropdown-item text-blac filter-option" href="#" checked="true">
+                            <t t-esc="tag.name"/>
+                          </a>
+                        </li>
+                      </t>
+                    </ul>
+                </div>
+              </t>
+
+              <!-- Link for Filter löschen -->
+              <div class="col-auto">
+                <a href="#" class="text-light link-underline">Filter löschen</a>
+              </div>
+
+              <!-- Buttons for Layout -->
+              <div class="col-auto">
+                <button id="list-view-btn" class="btn bg-transparent text-light rounded-0" title="List View">
+                  <i class="fa-solid fa-list"></i>
+                </button>
+                <button id="grid-view-btn" class="btn bg-transparent text-light rounded-0" title="Grid View">
+                  <i class="fa-solid fa-grip"></i>
+                </button>
+              </div>
+
+              <!-- Sorting Dropdown -->
+              <div class="col ms-auto">
+                <button class="btn bg-transparent text-light rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sortieren nach
+                </button>
+                <ul class="dropdown-menu bg-light border-light" aria-labelledby="dropdownMenuButton5">
+                  <li><a class="dropdown-item text-black sort-option" href="#" data-sort="name-asc">Name (A - Z)</a></li>
+                  <li><a class="dropdown-item text-black sort-option" href="#" data-sort="date-newest">Neueste</a></li>
+                  <li><a class="dropdown-item text-black sort-option" href="#" data-sort="lead-time">Lead Time</a></li>
+                  <li><a class="dropdown-item text-black sort-option" href="#" data-sort="guarantee">Guarantee</a></li>
+                </ul>
+              </div>
+        </div>
+
+        <!-- Grid Layout Testimonials -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-5" id="shuffle-container">
+          <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+            <div class="testimonial-item col">
+              <div class="card bg-transparent text-white border-0 rounded-0">
+                <img t-att-alt="testimonial.name"
+                     t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/"
+                     class="card-img-top img-fluid"/>
+                <a href="#" class="stretched-link" data-bs-toggle="modal" t-attf-data-bs-target="#testimonial#{testimonial.id}"></a>
+
+                <!-- Testimonial Name and Summary -->
+                <div class="card-body bg-black text-center text-md-start">
+                  <h4>
+                    <t t-esc="testimonial.name"/>
+                  </h4>
+                  <p class="card-text glass-effect">
+                    <t t-esc="testimonial.summary"/>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </t>
+        </div>
+
+
+        <!-- List Layout Testimonials -->
+        <ul class="list-group mt-5 list-group-light d-none w-100 bg-transparent" id="list-container">
+          <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+            <li class="list-group-item bg-transparent d-flex flex-column flex-md-row justify-content-between align-items-center w-100"
+                t-att-data-tags="testimonial.tags">
+              <div class="d-flex flex-column flex-md-row align-items-center w-100">
+                <img t-att-alt="testimonial.name"
+                     t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/"
+                     class="img-fluid testimonial-image"/>
+                <a href="#" class="stretched-link" data-bs-toggle="modal" t-attf-data-bs-target="#testimonial#{testimonial.id}"></a>
+
+                <!-- Testimonial Name and Summary -->
+                <div class="text-center text-md-start ms-md-5 mt-3 mt-md-0 w-100">
+                    <h4>
+                    <t t-esc="testimonial.name"/>
+                  </h4>
+                  <p class="text-muted mb-0">
+                    <t t-esc="testimonial.summary"/>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </t>
+        </ul>
+
+        <!-- Mehr anzeigen Button -->
+        <section class="text-center mt-5">
+          <button class="btn rounded-0">Mehr anzeigen</button>
+        </section>
+
+        <div class="col-md-8 js-shuffle-sizer"></div>
+      </div>
+    </div>
+
+    <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
+      <div t-attf-id="testimonial#{testimonial.id}" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" t-att-id="'testimonialModalLabel%s' % testimonial.id">
+                Testimonial Details</h5>
+              <a class="close" data-bs-dismiss="modal" aria-label="Close">
+                <i class="fa fa-close"/>
+              </a>
+            </div>
+            <div class="modal-body">
+              <h5 class="card-title text-primary">
+                <t t-esc="testimonial.name"/>
+              </h5>
+              <p class="card-text">
+                <t t-esc="testimonial.description"/>
+              </p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </t>
+  </t>
+
+  <!-- FAQ -->
+  <t t-name="website_product_showcase.snippet_faq_testimonial">
+    <div class="container w-md-75 w-lg-50 mt-3 p-5 text-light">
+        <h3 class="mb-4 text-uppercase fw-bold">Infos zum Testimonial mit Markenname</h3>
+        <hr/>
+
+        <!-- FAQ Accordion -->
+        <div class="accordion" id="faqSection">
+
+            <!-- FAQ Item 1 -->
+            <div class="accordion-item bg-transparent border-0">
+                <h2 class="accordion-header" id="faqHeading1">
+                    <button class="accordion-button text-light bg-transparent fw-bold d-flex justify-content-between align-items-center px-0 shadow-none collapsed custom-faq-toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse1"
+                            aria-expanded="false"
+                            aria-controls="faqCollapse1">
+                        <span>Welche Frage könnte hier wohl stehen?</span>
+                        <img src="/website_product_showcase/static/src/assets/arrow-red.png" class="faq-arrow" alt="Dropdown Arrow"/>
+                    </button>
+                </h2>
+                <div id="faqCollapse1" class="accordion-collapse collapse"
+                     aria-labelledby="faqHeading1" data-bs-parent="#faqSection">
+                    <div class="accordion-body text-light px-0">
+                        <p class="m-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr...</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- FAQ Item 2 -->
+            <div class="accordion-item bg-transparent border-0">
+                <h2 class="accordion-header" id="faqHeading2">
+                    <button class="accordion-button text-light bg-transparent fw-bold d-flex justify-content-between align-items-center px-0 shadow-none collapsed custom-faq-toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse2"
+                            aria-expanded="false"
+                            aria-controls="faqCollapse2">
+                        <span>Mit dieser Frage können die Kund:innen überzeugt werden?</span>
+                        <img src="/website_product_showcase/static/src/assets/arrow-red.png" class="faq-arrow" alt="Dropdown Arrow"/>
+                    </button>
+                </h2>
+                <div id="faqCollapse2" class="accordion-collapse collapse"
+                     aria-labelledby="faqHeading2" data-bs-parent="#faqSection">
+                    <div class="accordion-body text-light px-0">
+                        <p class="m-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr...</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+
+            <!-- FAQ Item 3 -->
+            <div class="accordion-item bg-transparent border-0">
+                <h2 class="accordion-header" id="faqHeading3">
+                    <button class="accordion-button text-light bg-transparent fw-bold d-flex justify-content-between align-items-center px-0 shadow-none collapsed custom-faq-toggle"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#faqCollapse3"
+                            aria-expanded="false"
+                            aria-controls="faqCollapse3">
+                        <span>Das hier sollte wohl eine Art FAQ zum Testamonial sein?</span>
+                        <img src="/website_product_showcase/static/src/assets/arrow-red.png" class="faq-arrow" alt="Dropdown Arrow"/>
+                    </button>
+                </h2>
+                <div id="faqCollapse3" class="accordion-collapse collapse"
+                     aria-labelledby="faqHeading3" data-bs-parent="#faqSection">
+                    <div class="accordion-body text-light px-0">
+                        <p class="m-0">Lorem ipsum dolor sit amet, consetetur sadipscing elitr...</p>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+        </div>
+
+
+        <!-- More info -->
+        <div class="mt-5">
+            <p>Hier stehen dann Infos zu dem Karousell das darunter sich befindet...</p>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr...</p>
+        </div>
+    </div>
+  </t>
+
+  <!-- Certificates -->
+  <t t-name="website_product_showcase.snippet_certificates">
+    <section class="container text-center my-5">
+        <h4 class="fw-bold mb-5">ZERTIFIKATE</h4>
+        <div class="row justify-content-center gy-4 mb-5">
+            <t t-foreach="certificates" t-as="certificate" t-key="certificate.id">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="certification-item">
+                        <div class="certification-icon">
+                            <i t-att-class="certificate.icon_class"></i>
+                        </div>
+                        <div class="certification-title">
+                            <t t-esc="certificate.title"/>
+                        </div>
+                        <div class="certification-subtitle">
+                            <t t-esc="certificate.subtitle"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+
+        <!-- Mehr anzeigen Button -->
+        <section class="text-center m-4">
+            <button class="btn  rounded-0">Mehr anzeigen</button>
+        </section>
+    </section>
+  </t>
+
+  <!-- Customer  -->
+  <t t-name="website_product_showcase.snippet_customer_testimonial">
+    <section class="testimonial-section container d-flex align-items-center p-5 flex-column flex-md-row">
+        <!-- Image -->
+        <div class="testimonial-image ms-md-5 p-md-5 mb-4 mb-md-0">
+            <img t-att-src="testimonial.image" alt="Customer" class="img-fluid" style="max-width: 300px;"/>
+        </div>
+
+        <!-- Text and Button -->
+        <div class="w-60 w-md-50 text-center text-md-start">
+            <p class="me-md-5">
+                <t t-esc="testimonial.quote"/>
+            </p>
+            <p>
+                <t t-esc="testimonial.name"/> - <t t-esc="testimonial.position"/>
+            </p>
+            <div class="d-flex justify-content-center justify-content-md-start">
+                <button class="btn rounded-0 text-light customer-btn">KONTAKT</button>
+            </div>
+        </div>
+    </section>
+  </t>
+
+
+
+
+
+
+
+
+  <!-- List Tags -->
+  <!-- <t t-name="website_product_showcase.snippet_all_tags">
+    <div class="container p-5">
+      <div class="row d-flex align-items-center flex-wrap">
+        <div class="dropdown me-3 mb-3 mb-md-0">
+          <t t-foreach="categories" t-as="category" t-key="category.id">
+            <button class="btn bg-light text-white border-light rounded-0 dropdown-toggle m-2" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <t t-out="category.name"/>
+            </button>
+            <ul class="dropdown-menu bg-light border-light" aria-labelledby="dropdownMenuButton1">
+              <t t-foreach="category.tag_ids" t-as="tag" t-key="tag.id">
+                <li>
+                  <a class="dropdown-item text-white" href="#">
+                    <t t-out="tag.name"/>
+                  </a>
+                </li>
+              </t>
+            </ul>
+          </t>
+        </div>
+      </div>
+    </div>
+  </t> -->
+
+</templates>

@@ -1,0 +1,13 @@
+<odoo>
+    <template id="theme_body_color_options" inherit_id="website.layout" name="Body theme options">
+        <xpath expr="//body" position="inside">
+            <div class="oe_snippet_options" data-attribute="classList" data-name="body_color">
+                <we-snippet-option name="body_color" data-type="classlist" data-attribute="classList">
+                    <we-inline-option data-class="theme-light" data-text="Body Light"/>
+                    <we-inline-option data-class="theme-dark" data-text="Body Dark"/>
+                    <we-inline-option data-class="theme-blue" data-text="Body Blue"/>
+                </we-snippet-option>
+            </div>
+        </xpath>
+    </template>
+</odoo>
