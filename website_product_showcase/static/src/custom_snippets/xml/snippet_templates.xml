@@ -61,10 +61,8 @@
   <!-- Showcase -->
   <t t-name="website_product_showcase.showcase_view">
     <div class="s_testimonial_search">
-      <div class="container">
-
-        <!-- Search & Filter Section -->
-        <div class="row align-items-center mb-5">
+      <!-- Search & Filter Section -->
+        <div class="row align-items-center">
               <!-- Search Bar -->
               <div class="col-auto">
                     <div class="input-group w-100">
@@ -110,7 +108,7 @@
 
               <!-- Sorting Dropdown -->
               <div class="col ms-auto">
-                <button class="btn bg-transparent text-light rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary rounded-0 dropdown-toggle" type="button" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">
                   Sortieren nach
                 </button>
                 <ul class="dropdown-menu bg-light border-light" aria-labelledby="dropdownMenuButton5">
@@ -123,13 +121,16 @@
         </div>
 
         <!-- Grid Layout Testimonials -->
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mt-5" id="shuffle-container">
+        <div class="row d-block mt-5" id="shuffle-container">
           <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
-            <div class="testimonial-item col">
-              <div class="card bg-transparent text-white border-0 rounded-0">
-                <img t-att-alt="testimonial.name"
-                     t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/"
-                     class="card-img-top img-fluid"/>
+            <div class="testimonial-item col-md-4 col-sm-6 col-12 "
+                 t-att-data-tags="testimonial.tags"
+                 t-att-data-name="testimonial.name"
+                 t-att-data-lead-time="testimonial.lead_time"
+                 t-att-data-guarantee="testimonial.guarantee"
+                 t-att-data-date="testimonial.date">
+              <div class="card bg-transparent text-white border-0 rounded-0 m-2 mb-5">
+                <img t-att-alt="testimonial.name" t-attf-src="/web/image/product.template/{{testimonial.media_ids[0]}}/image_1024/" class="card-img-top"/>
                 <a href="#" class="stretched-link" data-bs-toggle="modal" t-attf-data-bs-target="#testimonial#{testimonial.id}"></a>
 
                 <!-- Testimonial Name and Summary -->
@@ -160,10 +161,10 @@
 
                 <!-- Testimonial Name and Summary -->
                 <div class="text-center text-md-start ms-md-5 mt-3 mt-md-0 w-100">
-                    <h4>
+                    <h4 class="o_cc1">
                     <t t-esc="testimonial.name"/>
                   </h4>
-                  <p class="text-muted mb-0">
+                  <p class="text-muted o_cc1 mb-0">
                     <t t-esc="testimonial.summary"/>
                   </p>
                 </div>
@@ -173,12 +174,11 @@
         </ul>
 
         <!-- Mehr anzeigen Button -->
-        <section class="text-center mt-5">
-          <button class="btn rounded-0">Mehr anzeigen</button>
+        <section class="text-center">
+          <button class="btn btn-secondary rounded-0">Mehr anzeigen</button>
         </section>
 
         <div class="col-md-8 js-shuffle-sizer"></div>
-      </div>
     </div>
 
     <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
@@ -211,15 +211,61 @@
     </t>
   </t>
 
-  <!-- FAQ -->
+  <!-- Certificates -->
+  <t t-name="website_product_showcase.snippet_certificates">
+    <h4 class="fw-bold mb-5">ZERTIFIKATE</h4>
+        <div class="row justify-content-center gy-4 mb-5">
+            <t t-foreach="certificates" t-as="certificate" t-key="certificate.id">
+                <div class="col-12 col-sm-6 col-lg-3">
+                    <div class="certification-item">
+                        <div class="certification-icon">
+                            <i t-att-class="certificate.icon_class"></i>
+                        </div>
+                        <div class="certification-title">
+                            <t t-esc="certificate.title"/>
+                        </div>
+                        <div class="certification-subtitle">
+                            <t t-esc="certificate.subtitle"/>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+
+        <!-- Mehr anzeigen Button -->
+        <section class="text-center">
+            <button class="btn btn-secondary rounded-0">Mehr anzeigen</button>
+        </section>
+  </t>
+
+  <!-- Customer  -->
+  <t t-name="website_product_showcase.snippet_customer_testimonial">
+    <!-- Image -->
+        <div class="testimonial-image ms-md-5 p-md-5 mb-4 mb-md-0">
+            <img t-att-src="testimonial.image" alt="Customer" class="img-fluid" style="max-width: 300px;"/>
+        </div>
+
+        <!-- Text and Button -->
+        <div class="w-60 w-md-50 text-center text-md-start">
+            <p class="me-md-5">
+                <t t-esc="testimonial.quote"/>
+            </p>
+            <p>
+                <t t-esc="testimonial.name"/> - <t t-esc="testimonial.position"/>
+            </p>
+            <div class="d-flex justify-content-center justify-content-md-start">
+                <button class="btn rounded-0 text-light customer-btn">KONTAKT</button>
+            </div>
+        </div>
+  </t>
+
+  <!-- FAQ  -->
   <t t-name="website_product_showcase.snippet_faq_testimonial">
-    <div class="container w-md-75 w-lg-50 mt-3 p-5 text-light">
         <h3 class="mb-4 text-uppercase fw-bold">Infos zum Testimonial mit Markenname</h3>
-        <hr/>
-
         <!-- FAQ Accordion -->
-        <div class="accordion" id="faqSection">
+        <div class="accordion w-100 w-md w-lg-50" id="faqSection">
 
+            <hr/>
             <!-- FAQ Item 1 -->
             <div class="accordion-item bg-transparent border-0">
                 <h2 class="accordion-header" id="faqHeading1">
@@ -288,65 +334,7 @@
         </div>
 
 
-        <!-- More info -->
-        <div class="mt-5">
-            <p>Hier stehen dann Infos zu dem Karousell das darunter sich befindet...</p>
-            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr...</p>
-        </div>
-    </div>
-  </t>
-
-  <!-- Certificates -->
-  <t t-name="website_product_showcase.snippet_certificates">
-    <section class="container text-center my-5">
-        <h4 class="fw-bold mb-5">ZERTIFIKATE</h4>
-        <div class="row justify-content-center gy-4 mb-5">
-            <t t-foreach="certificates" t-as="certificate" t-key="certificate.id">
-                <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="certification-item">
-                        <div class="certification-icon">
-                            <i t-att-class="certificate.icon_class"></i>
-                        </div>
-                        <div class="certification-title">
-                            <t t-esc="certificate.title"/>
-                        </div>
-                        <div class="certification-subtitle">
-                            <t t-esc="certificate.subtitle"/>
-                        </div>
-                    </div>
-                </div>
-            </t>
-        </div>
-
-        <!-- Mehr anzeigen Button -->
-        <section class="text-center m-4">
-            <button class="btn  rounded-0">Mehr anzeigen</button>
-        </section>
-    </section>
-  </t>
-
-  <!-- Customer  -->
-  <t t-name="website_product_showcase.snippet_customer_testimonial">
-    <section class="testimonial-section container d-flex align-items-center p-5 flex-column flex-md-row">
-        <!-- Image -->
-        <div class="testimonial-image ms-md-5 p-md-5 mb-4 mb-md-0">
-            <img t-att-src="testimonial.image" alt="Customer" class="img-fluid" style="max-width: 300px;"/>
-        </div>
-
-        <!-- Text and Button -->
-        <div class="w-60 w-md-50 text-center text-md-start">
-            <p class="me-md-5">
-                <t t-esc="testimonial.quote"/>
-            </p>
-            <p>
-                <t t-esc="testimonial.name"/> - <t t-esc="testimonial.position"/>
-            </p>
-            <div class="d-flex justify-content-center justify-content-md-start">
-                <button class="btn rounded-0 text-light customer-btn">KONTAKT</button>
-            </div>
-        </div>
-    </section>
-  </t>
+    </t>
 
 
 

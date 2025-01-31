@@ -4,8 +4,7 @@ main {
 }
 
 hr{
-    color: white;
-    border-width: 2px;
+    border-width: 1px;
 }
 .certification-item {
     padding: 20px;
@@ -35,11 +34,11 @@ hr{
 }
 
 /* Ensure smooth transitions */
-
+.card-body{background-color: transparent !important;}
 .card:hover .card-body {
-    background: #262626 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
     backdrop-filter: blur(42px);
-    -webkit-backdrop-filter: blur(42px);
+    -webkit-backdrop-filter: blur(100px);
     transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
 
 }
