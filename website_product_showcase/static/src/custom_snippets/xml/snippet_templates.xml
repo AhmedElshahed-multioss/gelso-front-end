@@ -336,6 +336,15 @@
 
     </t>
 
+  <!-- Contact -->
+  <t t-name="website_product_showcase.snippet_contact">
+        <h3 class="fw-bold mb-4">Optimieren Sie Ihre Fertigung – mit Gelso als Partner!</h3>
+        <p class="mb-5">
+            Kontaktieren Sie uns noch heute, um von unserem umfassenden Fertigungsnetzwerk und unserem Service zu profitieren.
+            Gemeinsam finden wir die beste Lösung für Ihre Anforderungen – effizient, kostengünstig und in schweizer Qualität.
+        </p>
+        <button class="btn rounded-0 text-light" style="background-color: red;">KONTAKTIERE UNS</button>
+  </t>
 
 
 
