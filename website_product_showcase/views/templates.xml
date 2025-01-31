@@ -133,7 +133,7 @@
 
   <!-- Custom snippet: Showcase -->
   <template id="template_showcase" name="Showcase">
-    <section class="product-showcase ms-5 me-5 template_showcase">
+    <section class="product-showcase template_showcase container-fluid o_cc o_cc5 d-flex flex-column align-items-center justify-content-center">
       <!-- JS GOES HERE -->
     </section>
   </template>
@@ -146,7 +146,7 @@
 
   <!-- Custom snippet: FAQ -->
   <template id="template_faq_testimonial" name="FAQ Testimonial">
-    <section class="faq-testimonial-section">
+    <section class="faq-testimonial-section container-fluid o_cc o_cc5 d-flex flex-column align-items-center justify-content-center text-md-start p-5">
       <!-- JS GOES HERE -->
     </section>
   </template>
@@ -159,7 +159,7 @@
 
   <!-- Custom snippet: Certificates -->
   <template id="template_certificates" name="Certificates Section">
-    <section class="certificates-section">
+    <section class="certificates-section container-fluid o_cc o_cc5 text-center">
         <!-- JS will be injected here -->
     </section>
   </template>
@@ -172,7 +172,8 @@
 
   <!-- Custom snippet: Customer -->
   <template id="template_customer_testimonial" name="Customer Testimonial">
-        <section class="customer-testimonial-section">
+        <section class="customer-testimonial-section testimonial-section container-fluid o_cc o_cc5 d-flex
+        align-items-center justify-content-center p-5 flex-column flex-md-row">
             <!-- JavaScript will inject dynamic content here -->
         </section>
     </template>

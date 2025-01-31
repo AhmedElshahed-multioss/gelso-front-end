@@ -41,6 +41,7 @@
             'website_product_showcase/static/src/custom_snippets/js/customer_testimonial.js',
             'website_product_showcase/static/src/custom_snippets/js/shuffle/shuffle.js',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+
         ]
 
     },
