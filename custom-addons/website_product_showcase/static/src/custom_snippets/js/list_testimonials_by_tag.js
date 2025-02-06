@@ -23,6 +23,7 @@ publicWidget.registry.TestimonialsByTagSnippet = publicWidget.Widget.extend({
     },
 
     start: function () {
+
         // 1) Render all testimonials
         const renderedElement = renderToFragment(
             "website_product_showcase.snippet_testimonials_by_tag",
@@ -49,7 +50,7 @@ publicWidget.registry.TestimonialsByTagSnippet = publicWidget.Widget.extend({
 
 
     _updateItemVisibility: function () {
-        const $items = this.$el.find("#testimonials-row > div.col-auto");
+        const $items = this.$el.find("#testimonials-row > div.col-12");
 
         $items.each((index, item) => {
             if (index < this.displayLimit) {
