@@ -1,0 +1,21 @@
+.btn {
+    transition: all 0.4s ease-in-out; // Smooth animation for all changes
+    border-width: 2px;
+    border-color: #ffffff;
+    &:hover {
+        background-color: #ffffff !important;
+        border-color: #000000 !important;
+        color: #000000 !important;
+    }
+}
+
+.customer-btn {
+    background-color: red !important;
+    border: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.customer-btn:hover {
+    background-color: darkred !important;
+}
