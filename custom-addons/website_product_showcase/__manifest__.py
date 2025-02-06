@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "website_product_showcase",
 
@@ -28,25 +27,20 @@
         'demo/demo.xml',
     ],
     'assets': {
-        'web._assets_primary_variables': [
-            'website_product_showcase/static/src/scss/primary_variables.scss',
-        ],
-        'web._assets_frontend_helpers': [
-            'website_product_showcase/static/src/scss/bootstrap_overridden.scss',
-        ],
         'web.assets_frontend': [
+            'website_product_showcase/static/src/scss/custom_style.scss',
+            'website_product_showcase/static/src/scss/bootstrap_overrides.scss',
             'website_product_showcase/static/src/custom_snippets/xml/snippet_templates.xml',
-            'website_product_showcase/static/src/custom_snippets/js/search_bar.js',
             'website_product_showcase/static/src/custom_snippets/js/list_testimonials.js',
             'website_product_showcase/static/src/custom_snippets/js/single_testimonial.js',
             'website_product_showcase/static/src/custom_snippets/js/list_tags.js',
             'website_product_showcase/static/src/custom_snippets/js/list_testimonials_by_tag.js',
             'website_product_showcase/static/src/custom_snippets/js/showcase.js',
+            'website_product_showcase/static/src/custom_snippets/js/faq_testimonial.js',
+            'website_product_showcase/static/src/custom_snippets/js/certificates.js',
+            'website_product_showcase/static/src/custom_snippets/js/customer_testimonial.js',
             'website_product_showcase/static/src/custom_snippets/js/shuffle/shuffle.js',
-            'website_product_showcase/static/src/scss/custom_style.scss',
             'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
-            'website_product_showcase/static/src/scss/snippets.scss',
-            'website_product_showcase/static/src/scss/themes.scss'
         ]
 
     },
@@ -58,3 +52,4 @@
         'views/themes.xml'
     ],
 }
+# -*- coding: utf-8 -*-

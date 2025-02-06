@@ -5,6 +5,41 @@ from odoo.http import request
 
 class Main(http.Controller):
 
+    @http.route('/customer_testimonial', type='json', auth='public')
+    def get_customer_testimonial(self):
+        # Dummy Data
+        testimonial = {
+            "image": "/website_product_showcase/static/src/assets/customer.png",
+            "quote": "Die Zusammenarbeit mit Gelso war extrem Vorteilhaft und ging professionell und im Zeitrahmen über die Bühne",
+            "name": "Jane Doe",
+            "position": "CTO Google"
+        }
+
+        return {"testimonial": testimonial}
+
+    @http.route('/certificates', type='json', auth='public')
+    def get_certificates(self):
+        dummy_data = [
+            {'id': 1, 'icon_class': "fas fa-certificate", 'title': "ISO 9001", 'subtitle': "(Qualitätsmanagement)"},
+            {'id': 2, 'icon_class': "fas fa-leaf", 'title': "ISO 14001", 'subtitle': "(Umweltmanagement)"},
+            {'id': 3, 'icon_class': "fas fa-bolt", 'title': "ISO 50001", 'subtitle': "(Energiemanagement)"},
+            {'id': 4, 'icon_class': "fas fa-briefcase", 'title': "ISO 45001", 'subtitle': "(Arbeitsschutzmanagement)"},
+        ]
+
+        return {'certificates': dummy_data}
+
+    @http.route('/faq_testimonials', type='json', auth='public')
+    def get_faq_testimonials(self):
+        dummy_data = [
+            {'id': 1, 'question': "Welche Frage könnte hier wohl stehen?", 'answer': "Lorem ipsum dolor sit amet..."},
+            {'id': 2, 'question': "Mit dieser Frage können die Kund:innen überzeugt werden?",
+             'answer': "Lorem ipsum dolor sit amet..."},
+            {'id': 3, 'question': "Das hier sollte wohl eine Art FAQ zum Testamonial sein?",
+             'answer': "Lorem ipsum dolor sit amet..."},
+        ]
+
+        return {'faq_items': dummy_data}
+
     # Route for the showcase page
     @http.route('/showcase', type='json', auth='public')
     def show_showcase(self, tags=False, page=1, **kw):
@@ -36,6 +71,12 @@ class Main(http.Controller):
             'categories': categories_data,
 
         }
+
+    @http.route('/showcase/<model("testimonial"):testimonial>', type='http', auth='public', website=True)
+    def show_testimonial(self, testimonial):
+        return request.render('website_product_showcase.testimonial', {
+            'testimonial': testimonial
+        })
 
     # Route to get all testimonials in JSON format
     @http.route('/testimonials', type='json', auth='none')

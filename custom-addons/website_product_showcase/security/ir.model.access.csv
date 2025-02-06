@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 testimonial_manager,testimonial.access,model_testimonial,base.group_user,1,1,1,1
 testimonial_tag_manager,testimonial.tag.access,model_testimonial_tag,base.group_user,1,1,1,1
 testimonial_tag_category_manager,testimonial.tag.category.access,model_testimonial_tag_category,base.group_user,1,1,1,1
+testimonial_image_manager,testimonial.image.access,model_testimonial_image,base.group_user,1,1,1,1

@@ -1,0 +1,161 @@
+
+main {
+    overflow-x: hidden;
+}
+
+hr{
+    border-width: 1px;
+}
+.certification-item {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.certification-item:hover {
+    transform: scale(1.05);
+}
+
+.certification-icon {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.certification-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.certification-subtitle {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+/* Ensure smooth transitions */
+.card-body{background-color: transparent !important;}
+.card:hover .card-body {
+    background: rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(42px);
+    -webkit-backdrop-filter: blur(100px);
+    transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
+
+}
+
+/* Add a zoom effect to the image when hovering over the card */
+.card:hover img {
+    transform: scale(1.05); /* Slight zoom effect */
+    transition: all 0.4s ease-in-out;
+}
+
+/* Apply blur effect and background transition to list items */
+.list-group-item:hover {
+    background: rgb(42, 45, 50) !important; /* Dark Gunmetal Gray */
+    backdrop-filter: blur(50px); /* Strong blur effect */
+    transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
+}
+
+/* Add a zoom effect to the image when hovering over the list item */
+.list-group-item:hover img {
+    transform: scale(1.05); /* Slight zoom effect */
+    transition: all 0.4s ease-in-out;
+}
+
+/* Remove Bootstrap's default accordion arrow */
+.accordion-button::after {
+    display: none !important;
+}
+
+/* FAQ arrow */
+.custom-faq-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.faq-arrow {
+    width: 16px;  /* Adjust the size as needed */
+    height: 16px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Rotate the arrow when the FAQ is open */
+.accordion-button:not(.collapsed) .faq-arrow {
+    transform: rotate(180deg);
+}
+
+
+.form-control{
+    border-width: 2px;
+}
+
+
+@media (max-width: 767px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-end.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-start.active,
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-25%);
+    }
+}
+
+.carousel-inner .carousel-item-end,
+.carousel-inner .carousel-item-start {
+  transform: translateX(0);
+}
+
+.accordion-button::after {
+  --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23FF0000' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+  --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23FF0000' viewBox='0 0 16 16'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+
+/* Remove Bootstrap's default accordion arrow */
+.accordion-button::after {
+    display: none !important;
+}
+
+/* Style for the custom arrow */
+.faq-arrow {
+    width: 20px; /* Adjust size */
+    height: 20px;
+    transition: transform 0.3s ease-in-out; /* Smooth animation */
+}
+
+/* Rotate arrow when accordion item is expanded */
+.accordion-button:not(.collapsed) .faq-arrow {
+    transform: rotate(180deg);
+}
+
+
+@media (max-width: 768px) {
+    .footer-brand {
+        font-size: 1.2rem;
+    }
+}
