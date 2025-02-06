@@ -14,7 +14,7 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
     "click #list-view-btn": "_onListViewClick", // Handle list view click
     "click #grid-view-btn": "_onGridViewClick", // Handle grid view click
     "click .sort-option": "_onSortOptionClick", // Handle sort option click
-    "click #load-more": "_onSortOptionClick", // Handle sort option click
+    "click #load-more": "_onLoadMoreClick", // Handle sort option click
   },
 
   init: function () {
@@ -22,6 +22,8 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
     this.activeFilters = [];
     this.searchQuery = "";
 
+    this.gridCurrentLimit = 6;
+    this.listCurrentLimit = 6;
   },
 
   willStart: function () {
@@ -62,13 +64,74 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
             filterMode: "any",
         });
     }
+
+    this._updateGridVisibility();
+    this._updateListVisibility();
+
+    return this._super(...arguments);
   },
+
+
+  _updateGridVisibility: function () {
+      if (!this.shuffleInstance) return;
+
+      let displayedCount = 0;
+      this.shuffleInstance.items.forEach((item) => {
+
+          if (item.isHidden) {
+              item.element.style.display = "none";
+          } else {
+              if (displayedCount < this.gridCurrentLimit) {
+                  item.element.style.display = ""; // show
+                  displayedCount++;
+              } else {
+                  item.element.style.display = "none"; // hide
+              }
+          }
+      });
+
+      // Force Shuffle to re-layout so spacing is correct
+      this.shuffleInstance.layout();
+  },
+
+  _updateListVisibility: function () {
+      const listContainer = document.getElementById("list-container");
+      if (!listContainer) return;
+
+      const listItems = listContainer.querySelectorAll(".list-group-item");
+      let displayedCount = 0;
+
+      listItems.forEach((item) => {
+          if (displayedCount < this.listCurrentLimit) {
+              item.style.display = "";
+              displayedCount++;
+          } else {
+              item.style.display = "none";
+          }
+      });
+  },
+
+  _onLoadMoreClick: function (ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+
+    // Determine which layout is currently active (grid or list).
+    const isGridActive = !$("#shuffle-container").hasClass("d-none");
+
+    if (isGridActive) {
+        this.gridCurrentLimit += 6;
+        this._updateGridVisibility();
+    } else {
+        this.listCurrentLimit += 6;
+        this._updateListVisibility();
+    }
+},
 
   _applyFadeTransition: function (container, callback) {
     // Apply fade-out effect
     container.css({
       opacity: 0,
-      transition: "opacity 0.3s ease-in-out",
+      transition: "opacity 0.3s ease-in",
     });
 
     // Execute the callback after the fade-out completes
@@ -78,7 +141,7 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
       container.css({
         opacity: 1,
       });
-    }, 300); // Match transition duration
+    }, 200); // Match transition duration
   },
 
   _onSearchInput: function (ev) {
@@ -135,6 +198,12 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
       });
     }
 
+    this._applyFadeTransition($("#list-container"), () => {
+        this._updateListVisibility();
+
+    }, 200);
+
+
     // Update button states
     $("#list-view-btn").addClass("active");
     $("#grid-view-btn").removeClass("active");
@@ -164,6 +233,9 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
       });
     }
 
+    this._applyFadeTransition($("#shuffle-container"), () => {
+        this._updateGridVisibility();
+    }, 200);
 
     // Update button states
     $("#grid-view-btn").addClass("active");
