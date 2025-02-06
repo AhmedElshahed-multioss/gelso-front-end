@@ -14,12 +14,14 @@ publicWidget.registry.TestimonialSearch = publicWidget.Widget.extend({
     "click #list-view-btn": "_onListViewClick", // Handle list view click
     "click #grid-view-btn": "_onGridViewClick", // Handle grid view click
     "click .sort-option": "_onSortOptionClick", // Handle sort option click
+    "click #load-more": "_onSortOptionClick", // Handle sort option click
   },
 
   init: function () {
     this._super.apply(this, arguments);
     this.activeFilters = [];
     this.searchQuery = "";
+
   },
 
   willStart: function () {

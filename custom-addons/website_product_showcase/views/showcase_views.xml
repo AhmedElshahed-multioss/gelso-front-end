@@ -59,14 +59,18 @@
               <group>
                 <field name="media_ids">
                   <tree>
-                    <field name="image_1920" widget="image"/>
                     <field name="name"/>
+                    <field name="description"/>
+                    <field name="image" widget="image"/>
                   </tree>
                   <form>
                     <sheet>
                       <!-- Show the image in a larger form -->
-                      <field name="image_1920" widget="image"/>
-                      <field name="name"/>
+                      <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="image" widget="image"/>
+                      </group>
                     </sheet>
                   </form>
                 </field>
@@ -198,5 +202,4 @@
       </p>
     </field>
   </record>
-
 </odoo>

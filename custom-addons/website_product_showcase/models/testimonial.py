@@ -29,7 +29,7 @@ class Testimonial(models.Model):
         column2='similar_id',
         string='Similar Products'
     )
-    media_ids = fields.Many2many('product.template', string='Media')
+    media_ids = fields.Many2many('testimonial.image', string='Media')
     certification_image = fields.Image(string='Certification Image (Optional)')
     certification_text = fields.Text(string='Certification Text (Optional)')
     customer_id = fields.Many2one('res.partner', string='Customer')
@@ -40,6 +40,17 @@ class Testimonial(models.Model):
         ('2', 'Customer Information Visible WITH contact details'), ], default='0')
 
     tags = fields.Many2many('testimonial.tag', 'id', string='Tags')
+
+    header_content = fields.Html(string='Header Content', translate=html_translate,
+        sanitize_overridable=True,
+        sanitize_attributes=False,
+        sanitize_form=False,
+    )
+    footer_content = fields.Html(string='Footer Content', translate=html_translate,
+        sanitize_overridable=True,
+        sanitize_attributes=False,
+        sanitize_form=False,
+    )
 
     @api.depends("date_received", "date_delivered")
     def _compute_lead_time(self):
