@@ -55,35 +55,36 @@
     </div>
   </t>
 
-  <!-- List Testimonials by Tag -->
+  <!-- List Testimonials by Tag (Related Testimonials) -->
   <t t-name="website_product_showcase.snippet_testimonials_by_tag">
-    <div class="container">
-      <div class="row g-4">
+    <div class="container-fluid o_cc o_cc5 d-flex flex-column">
+
+      <h4 class="fw-bold mb-2 text-secondary text-uppercase text-center">Related Testimonials</h4>
+
+      <div id="testimonials-row" class="row mx-5">
         <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
-          <div class="col-12 col-sm-6 col-lg-4 p-5">
-            <div class="card bg-black text-white border-0 rounded-0">
+          <div class="col-auto col-lg-4 p-5">
+            <div class="card border-0 rounded-0">
               <!-- If testimonial image is present, display the first (main) image -->
               <t t-if="testimonial.media_ids">
-                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image"
-                     t-att-alt="testimonial.media_ids[0].description"
-                     class="img-fluid"
-                />
+                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image" t-att-alt="testimonial.media_ids[0].description" class="img-fluid" style="object-fit: cover; height: 100%; width: 100%;"/>
               </t>
-              <div class="card-body bg-black">
-                <p class="card-text glass-effect">
-                  <t t-out="testimonial.summary"/>
-                </p>
-              </div>
+              <a class="stretched-link" t-attf-href="/showcase/{{testimonial.id}}"></a>
             </div>
           </div>
         </t>
       </div>
+
+      <!-- Mehr anzeigen Button -->
+      <section class="text-center mt-3">
+          <button id="load-mehr" class="btn btn-secondary rounded-0">Mehr anzeigen</button>
+      </section>
     </div>
   </t>
 
   <!-- Showcase (Adjust image link) -->
   <t t-name="website_product_showcase.showcase_view">
-    <div class="s_testimonial_search min-vh-100">
+    <div class="s_testimonial_search d-flex flex-column">
       <!-- Search & Filter Section -->
       <div class="row align-items-center gy-3 gy-md-3">
         <!-- Search Bar -->
@@ -212,7 +213,7 @@
 
       <!-- Mehr anzeigen Button -->
       <section class="text-center mt-5">
-          <button id="load-more" class="btn btn-secondary rounded-0 d-none">Mehr anzeigen</button>
+          <button id="load-more" class="btn btn-secondary rounded-0">Mehr anzeigen</button>
       </section>
 
       <div class="col-md-8 js-shuffle-sizer"></div>
@@ -291,7 +292,7 @@
         <t t-esc="testimonial.name"/> - <t t-esc="testimonial.position"/>
       </p>
       <div class="d-flex justify-content-center justify-content-md-start">
-        <button class="btn rounded-0 customer-btn">KONTAKT</button>
+        <button class="btn rounded-0 customer-btn text-secondary">KONTAKT</button>
       </div>
     </div>
   </t>

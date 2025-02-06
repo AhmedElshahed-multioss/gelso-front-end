@@ -20,7 +20,7 @@
 
             <!-- Navbar links -->
             <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
+              <ul class="navbar-nav ms-auto px-5">
                 <li class="nav-item">
                   <a class="nav-link" href="#">CONTRACT MANUFACTURING</a>
                 </li>
@@ -85,32 +85,26 @@
   </template>
 
 
-  <!-- Testimonial detailed webpage -->
+  <!-- Testimonial detailed webpage container-fluid o_cc o_cc5-->
   <template id="testimonial">
     <t t-call="website.layout">
       <div class="oe_structure oe_empty" t-field="testimonial.header_content" id="oe_structure_header_1"/>
-      <section
-              class="testimonial-description-section container-fluid o_cc o_cc5 d-flex justify-content-center align-items-center py-3">
-        <div class="w-md-75 w-lg-50">
-          <div class="container">
-            <h3 class="mt-5 text-md-start" id="testimonial-title">
+      <section class="testimonial-description-section container-fluid o_cc o_cc5 d-flex justify-content-center align-items-center py-3">
+        <div class="container p-5 w-sm-100 w-md-50">
+            <h3 class="row" id="testimonial-title">
               <t t-esc="testimonial.summary"/>
             </h3>
-            <div class="my-5 text-center">
+            <div class="row my-5">
               <t t-if="testimonial.media_ids">
-                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0].id}}/image"
-                     t-att-alt="testimonial.media_ids[0].description"
-                     class="img-fluid"
-                />
+                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0].id}}/image" t-att-alt="testimonial.media_ids[0].description" class="img-fluid"/>
               </t>
             </div>
-            <div class="ms-2">
+            <div class="row text-sm-start">
               <p class="fw-bold">Produkt Beschreibung mit sowas wie:</p>
               <p id="testimonial-description" class="">
                 <t t-esc="testimonial.description"/>
               </p>
             </div>
-          </div>
         </div>
       </section>
 
@@ -134,9 +128,9 @@
   </template>
 
 
-  <!-- Custom snippet: List testimonials by TAG -->
+  <!-- Custom snippet: List testimonials by TAG (Related Testimonial) -->
   <template id="template_testimonials_by_tag" name="Testimonials By Tag">
-    <section class="product-showcase ms-5 me-5 template_testimonials_by_tag">
+    <section class="product-showcase template_testimonials_by_tag">
       <!-- JS GOES HERE -->
     </section>
   </template>
