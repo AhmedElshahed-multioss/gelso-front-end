@@ -55,19 +55,19 @@
     </div>
   </t>
 
-  <!-- List Testimonials by Tag (Related Testimonials) -->
+  <!-- List Testimonials by Tag -->
   <t t-name="website_product_showcase.snippet_testimonials_by_tag">
     <div class="container-fluid o_cc o_cc5 d-flex flex-column">
 
       <h4 class="fw-bold mb-2 text-secondary text-uppercase text-center">Related Testimonials</h4>
 
-      <div id="testimonials-row" class="row mx-5">
+      <div id="testimonials-row" class="row mx-lg-auto mx-md-auto mx-sm-auto">
         <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
-          <div class="col-auto col-lg-4 p-5">
+          <div class="col-12 col-sm-6 col-lg-4 p-5">
             <div class="card border-0 rounded-0">
               <!-- If testimonial image is present, display the first (main) image -->
               <t t-if="testimonial.media_ids">
-                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image" t-att-alt="testimonial.media_ids[0].description" class="img-fluid" style="object-fit: cover; height: 100%; width: 100%;"/>
+                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image" t-att-alt="testimonial.media_ids[0].description" class="img-fluid" style="height: 100%; width: 100%;"/>
               </t>
               <a class="stretched-link" t-attf-href="/showcase/{{testimonial.id}}"></a>
             </div>
@@ -152,7 +152,7 @@
       <!-- Grid Layout Testimonials (Fix Layout on mobile view / Disable) -->
       <div class="row d-block mt-5" id="shuffle-container">
         <t t-foreach="testimonials" t-as="testimonial" t-key="testimonial.id">
-          <div class="testimonial-item col-md-4 col-sm-6 col-12 "
+          <div class="testimonial-item col-md-4 col-sm-6 col-12"
                t-att-data-tags="testimonial.tags"
                t-att-data-name="testimonial.name"
                t-att-data-lead-time="testimonial.lead_time"
@@ -190,10 +190,7 @@
             <div class="d-flex flex-column flex-md-row align-items-center w-100">
               <!-- If testimonial image is present, display the first (main) image -->
               <t t-if="testimonial.media_ids">
-                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image"
-                     t-att-alt="testimonial.media_ids[0].description"
-                     class="img-fluid"
-                />
+                <img t-attf-src="/web/image/testimonial.image/{{testimonial.media_ids[0]}}/image" t-att-alt="testimonial.media_ids[0].description" class="img-fluid"/>
               </t>
               <a class="stretched-link" t-attf-href="/showcase/{{testimonial.id}}"></a>
 

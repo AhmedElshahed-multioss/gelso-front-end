@@ -35,13 +35,6 @@ hr{
 
 /* Ensure smooth transitions */
 .card-body{background-color: transparent !important;}
-.card:hover .card-body {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(42px);
-    -webkit-backdrop-filter: blur(100px);
-    transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
-
-}
 
 /* Add a zoom effect to the image when hovering over the card */
 .card:hover img {
@@ -50,7 +43,13 @@ hr{
 }
 
 /* Apply blur effect and background transition to list items */
-.list-group-item:hover {
+.list-group-item:hover{
+    background: rgb(42, 45, 50) !important; /* Dark Gunmetal Gray */
+    backdrop-filter: blur(50px); /* Strong blur effect */
+    transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
+}
+
+.testimonial-item:hover{
     background: rgb(42, 45, 50) !important; /* Dark Gunmetal Gray */
     backdrop-filter: blur(50px); /* Strong blur effect */
     transition: background 0.4s ease-in-out, backdrop-filter 0.4s ease-in-out;
