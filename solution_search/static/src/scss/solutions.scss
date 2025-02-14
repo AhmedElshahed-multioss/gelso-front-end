@@ -1,0 +1,37 @@
+.tag-filter-rounded {
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.tag-filter.active {
+  background-color: white;
+}
+
+.solution-item {
+  margin-bottom: 5px;
+}
+
+.solution-carousel {
+  padding-bottom: 30px;
+  .carousel-indicators {
+    bottom: -10px;
+    left: auto;
+    right: 0;
+  }
+
+  .carousel-indicators [data-bs-target]:last-child {
+    margin-right: 0;
+  }
+}
+
+.long-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    max-height: 6.5em;
+    line-height: 1.3em;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}

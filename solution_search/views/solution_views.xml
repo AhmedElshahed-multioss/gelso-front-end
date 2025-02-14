@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <!-- solution tree view -->
+    <record id="view_solution_solution_tree" model="ir.ui.view">
+        <field name="name">solution.solution.tree</field>
+        <field name="model">solution_search.solution</field>
+        <!-- allow multi edit -->
+        <field name="arch" type="xml">
+            <tree string="Solution List" multi_edit="1" edit="0">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="solution_subtitle"/>
+                <field name="video"/>
+                <field name="tags" widget="many2many_tags"/>
+                <field name="active"/>
+                <field name="type"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- solution form view -->
+    <record model="ir.ui.view" id="view_solution_form">
+        <field name="name">solution.solution.form</field>
+        <field name="model">solution_search.solution</field>
+        <field name="arch" type="xml">
+            <form string="Solution Form">
+                <sheet>
+                    <group string="Basic Information">
+                        <field name="name"/>
+                        <field name="solution_subtitle"/>
+                        <field name="description"/>
+                        <field name="long_description"/>
+                        <field name="image_1920"/>
+                        <field name="video"/>
+                        <field name="tags" widget="many2many_tags"/>
+                        <field name="active"/>
+                        <field name="type"/>
+                    </group>
+                    <group string="Literature Information" invisible="type != 'paper'">
+                        <field name="literature_title" invisible="type != 'paper'"/>
+                        <field name="literature_authors" invisible="type != 'paper'"/>
+                        <field name="literature_date" invisible="type != 'paper'"/>
+                        <field name="literature_url" invisible="type != 'paper'"/>
+                        <field name="literature_image_url" invisible="type != 'paper'"/>
+                    </group>
+                    <group name="media_ids" string="Extra  Media">
+                        <field name="media_ids" class="o_website_sale_image_list"
+                               context="{'default_name': name}" mode="kanban" add-label="Add a Media"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_solution_solution" model="ir.actions.act_window">
+        <field name="name">Solutions</field>
+        <field name="res_model">solution_search.solution</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type', '=', 'solution')]</field>
+        <field name="context">{'default_type': 'solution'}</field>
+        <field name="view_id" ref="view_solution_solution_tree"/>
+    </record>
+
+    <record id="action_solution_papers" model="ir.actions.act_window">
+        <field name="name">Papers</field>
+        <field name="res_model">solution_search.solution</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type', '=', 'paper')]</field>
+        <field name="context">{'default_type': 'paper'}</field>
+        <field name="view_id" ref="view_solution_solution_tree"/>
+    </record>
+
+    <record id="action_solution_capabilities" model="ir.actions.act_window">
+        <field name="name">Capabilities</field>
+        <field name="res_model">solution_search.solution</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('type', '=', 'capability')]</field>
+        <field name="context">{'default_type': 'capability'}</field>
+        <field name="view_id" ref="view_solution_solution_tree"/>
+    </record>
+
+    <!-- solution tag tree-->
+    <record id="view_solution_tag_tree" model="ir.ui.view">
+        <field name="name">solution.tag.tree</field>
+        <field name="model">solution_search.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Tag List">
+                <field name="name"/>
+                <field name="category_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- solution tag form -->
+    <record model="ir.ui.view" id="view_solution_tag_form">
+        <field name="name">solution.tag.form</field>
+        <field name="model">solution_search.tag</field>
+        <field name="arch" type="xml">
+            <form string="Tag Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="category_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- action solution tag -->
+    <record id="action_tags" model="ir.actions.act_window">
+        <field name="name">Tags</field>
+        <field name="res_model">solution_search.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_solution_tag_tree"/>
+    </record>
+
+    <!-- solution tag category form -->
+    <record model="ir.ui.view" id="view_solution_tag_category_form">
+        <field name="name">solution.tag.category.form</field>
+        <field name="model">solution_search.tag.category</field>
+        <field name="arch" type="xml">
+            <form string="Tag Category Form">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- solution tag category tree-->
+    <record id="view_solution_tag_category_tree" model="ir.ui.view">
+        <field name="name">solution.tag.category.tree</field>
+        <field name="model">solution_search.tag.category</field>
+        <field name="arch" type="xml">
+            <tree string="Tag Category List">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <!-- This view should only be used from the product o2m because the required field product_tmpl_id has to be automatically set. -->
+    <record id="view_solution_search_media_form" model="ir.ui.view">
+        <field name="name">solution_search.media.view.form</field>
+        <field name="model">solution_search.media</field>
+        <field name="arch" type="xml">
+            <form string="Product Images">
+                <field name="sequence" invisible="1"/>
+                <div class="row o_website_sale_image_modal">
+                    <div class="col-md-6 col-xl-5">
+                        <label for="name" string="Image Name"/>
+                        <h2><field name="name" placeholder="Image Name"/></h2>
+                        <label for="video_url" string="Video URL"/><br/>
+                        <field name="video_url"/><br/>
+                    </div>
+                    <div class="col-md-6 col-xl-7 text-center o_website_sale_image_modal_container">
+                        <div class="row">
+                            <div class="col">
+                                <field name="image_1920" widget="image"/>
+                            </div>
+                            <div class="col" invisible="video_url in ['', False]">
+                                <div class="o_video_container p-2">
+                                    <span>Video Preview</span>
+                                    <field name="embed_code" class="mt-2" widget="video_preview"/>
+                                    <h4 class="o_invalid_warning text-muted text-center" invisible="embed_code">
+                                        Please enter a valid Video URL.
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="solution_search_media_view_kanban" model="ir.ui.view">
+        <field name="name">solution_search.media.view.kanban</field>
+        <field name="model">solution_search.media</field>
+        <field name="arch" type="xml">
+            <kanban string="Product Images" default_order="sequence">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="image_1920"/>
+                <field name="sequence" widget="handle"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="card oe_kanban_global_click p-0">
+                            <div class="o_squared_image">
+                                <img class="card-img-top"
+                                     t-att-src="kanban_image('solution_search.media', 'image_1920', record.id.raw_value)"
+                                     t-att-alt="record.name.value"/>
+                            </div>
+                            <div class="card-body p-0">
+                                <h4 class="card-title p-2 m-0 bg-200">
+                                    <small><field name="name"/></small>
+                                </h4>
+                            </div>
+                            <!-- below 100 Kb: good -->
+                            <t t-if="record.image_1920.raw_value.length &lt; 100*1000">
+                                <t t-set="size_status" t-value="'text-bg-success'"/>
+                                <t t-set="message">Acceptable file size</t>
+                            </t>
+                            <!-- below 1000 Kb: decent -->
+                            <t t-elif="record.image_1920.raw_value.length &lt; 1000*1000">
+                                <t t-set="size_status" t-value="'text-bg-warning'"/>
+                                <t t-set="message">Huge file size. The image should be optimized/reduced.</t>
+                            </t>
+                            <!-- above 1000 Kb: bad -->
+                            <t t-else="1">
+                                <t t-set="size_status" t-value="'text-bg-danger'"/>
+                                <t t-set="message">Optimization required! Reduce the image size or increase your
+                                    compression settings.</t>
+                            </t>
+                            <span t-attf-class="badge #{size_status} o_solution_search_media_size"
+                                  t-esc="record.image_1920.value" t-att-title="message"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- action tag category -->
+    <record id="action_tag_category" model="ir.actions.act_window">
+        <field name="name">Solution Tag Categories</field>
+        <field name="res_model">solution_search.tag.category</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_solution_tag_category_tree"/>
+    </record>
+
+
+    <!-- root -->
+    <menuitem name="Entries"
+              id="menu_solution_root"
+              sequence="200"
+              parent="website.menu_website_configuration"
+              groups="website.group_website_designer"/>
+
+    <menuitem id="menu_solution_global"
+              parent="menu_solution_root"
+              name="Solutions"
+              sequence="50"
+              action="action_solution_solution"/>
+    <menuitem id="menu_paper_global"
+              parent="menu_solution_root"
+              name="Papers"
+              sequence="50"
+              action="action_solution_papers"/>
+    <menuitem id="menu_capability_global"
+              parent="menu_solution_root"
+              name="Capabilities"
+              sequence="50"
+              action="action_solution_capabilities"/>
+    <menuitem id="menu_solution_tag_global"
+              parent="menu_solution_root"
+              name="Tags"
+              action="action_tags"
+              sequence="60"/>
+
+    <menuitem id="menu_solution_tag_category_global"
+              parent="menu_solution_root"
+              name="Tag Categories"
+              sequence="70"
+              action="action_tag_category"/>
+</odoo>

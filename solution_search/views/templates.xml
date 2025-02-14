@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="solutions_view">
+            <t t-call="website.layout">
+                <div class="oe_structure oe_empty" id="oe_structure_solution_search_3"/>
+                <div class="s_solution_search">
+                    <div class="container">
+                        <div class="row">
+                            <!--  Filters -->
+                            <div class="col-md-3 mt-5">
+                                <!-- Filter header -->
+                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                    <h4>FILTERS</h4>
+                                </div>
+
+                                <!-- Filter body -->
+                                <t t-foreach="categories" t-as="category">
+                                        <!-- every category is a dropdown with toggle switches for every option horizontally aligned (all dropdown in one row on desktop) -->
+                                        <hr/>
+                                        <div class="collapsed">
+                                            <button class="btn border-0 w-100 text-start d-flex justify-content-between align-items-center" type="button"
+                                                    t-att-data-bs-target="'#collapseMenu%s' % category.id"
+                                                    data-bs-toggle="collapse"
+                                                    aria-expanded="false"
+                                                    t-att-aria-controls="'collapseMenu%s' % category.id">
+                                                <span><t t-esc="category.name"/></span>
+                                                <i class="fa fa-chevron-down"></i>
+                                            </button>
+
+                                            <ul t-att-id="'collapseMenu%s' % category.id" class="collapse list-group-flush mt-2 p-2 border">
+                                                <t t-foreach="category.tag_ids" t-as="tag">
+                                                    <t t-if="tag in tags">
+                                                        <li t-att-data-tag="tag.id" t-att-href="'#'" class="tag-filter list-group-item" role="button">
+                                                            <div class="form-check form-switch">
+                                                                <input class="form-check-input" checked="true" style="pointer-events:none;" type="checkbox" t-attf-id="switch#{tag.id}"/>
+                                                                <label class="form-check-label" checked="true" t-attf-for="switch#{tag.id}">
+                                                                    <t t-esc="tag.name"/>
+                                                                </label>
+                                                            </div>
+                                                        </li>
+                                                    </t>
+                                                </t>
+                                            </ul>
+                                        </div>
+
+                                    </t>
+
+                                <!-- Reset filters -->
+                                <div class="col-auto d-flex justify-content-center align-items-center mt-5">
+                                    <a class="text-underline reset-filters" href="#">Filter löschen</a>
+                                </div>
+                            </div>
+
+                            <!--  Solutions -->
+                            <div class="col-12 col-md-9 min-vh-100" style="margin-top: 2.1em;">
+                                <div class="row w-100" id="shuffle-container">
+                                    <t t-foreach="solutions" t-as="solution">
+                                        <div class="col-12 solution-item py-2" t-att-data-tags="solution.tags.ids">
+                                            <div class="card mb-3 w-100 bg-white d-flex flex-column border-0" style="max-height: 500px">
+                                                <!-- Header -->
+                                                <div class="card-header border-0 bg-transparent rounded-0 mb-2 text-start p-2">
+                                                    <div class="d-flex flex-wrap gap-2">
+                                                        <t t-foreach="solution.tags" t-as="tag">
+                                                            <t t-if="tag in tags">
+                                                                <span class="badge bg-secondary rounded-0 px-2 py-1">
+                                                                    <t t-esc="tag.name"/>
+                                                                </span>
+                                                            </t>
+                                                        </t>
+                                                    </div>
+                                                    <h4 class="mt-2 mb-0"><t t-esc="solution.name"/></h4>
+                                                </div>
+
+                                                <div class="d-flex flex-md-row flex-column align-items-start">
+                                                    <img t-att-alt="solution.name"
+                                                         t-attf-src="/web/image/solution_search.solution/#{solution.id}/image_1920/250x250"
+                                                         class="card-img-left ms-md-2 mb-2 mb-md-0 img-responsive" width="250" height="150"/>
+                                                    <div class="card-body" style="max-height: 50px">
+                                                        <p class="card-text"  style="text-overflow: ellipsis">
+                                                            <t t-esc="solution.description"/>
+                                                        </p>
+                                                    </div>
+                                                    <a href="#" class="stretched-link" data-bs-toggle="modal"
+                                                       t-attf-data-bs-target="#solution#{solution.id}">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <hr class="mt-4"/>
+                                        </div>
+                                    </t>
+                                    <div class="col-md-4 js-shuffle-sizer"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modals -->
+                        <t t-foreach="solutions" t-as="solution">
+                            <div t-attf-id="solution#{solution.id}" class="modal fade"
+                                 role="dialog" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                t-att-id="'solutionModalLabel%s' % solution.id">
+                                                Solution
+                                                Details</h5>
+                                            <a class="close" data-bs-dismiss="modal"
+                                               aria-label="Close">
+                                                <i class="fa fa-close"/>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-7">
+                                                    <!-- bootstrap carousel -->
+                                                    <!-- first image is the main image (field image_1920), second the main video (field video_url) and then the rest of the images (media_ids) -->
+                                                    <!-- add carousel indicators -->
+
+                                                    <div t-attf-id="carouselExampleIndicators#{solution.id}"
+                                                         class="carousel carousel-dark slide solution-carousel"
+                                                         data-bs-ride="carousel">
+                                                        <ol class="carousel-indicators">
+                                                            <li t-attf-data-bs-target="#carouselExampleIndicators#{solution.id}"
+                                                                data-bs-slide-to="0" class="active"/>
+                                                            <t t-if="solution.video">
+                                                                <li t-attf-data-bs-target="#carouselExampleIndicators#{solution.id}"
+                                                                    data-bs-slide-to="1"/>
+                                                            </t>
+                                                            <t t-foreach="solution.media_ids" t-as="media"
+                                                               t-key="media.id">
+                                                                <li t-attf-data-bs-target="#carouselExampleIndicators#{solution.id}"
+                                                                    t-att-data-bs-slide-to="media_index + 2"/>
+                                                            </t>
+                                                        </ol>
+                                                        <div class="carousel-inner">
+                                                            <div class="carousel-item active">
+                                                                <img t-attf-src="/web/image/solution_search.solution/#{solution.id}/image_1920/250x250"
+                                                                     class="d-block w-100" alt="..."/>
+                                                            </div>
+                                                            <t t-if="solution.video">
+                                                                <div class="carousel-item">
+                                                                    <div class="ratio ratio-16x9">
+                                                                        <iframe t-att-src="solution.video"
+                                                                                controls="controls"
+                                                                                class="w-100">
+                                                                            Your browser does not support the video tag.
+                                                                        </iframe>
+                                                                    </div>
+                                                                </div>
+                                                            </t>
+                                                            <t t-foreach="solution.media_ids" t-as="media">
+                                                                <div class="carousel-item">
+                                                                    <img t-attf-src="/web/image/solution_search.media/#{media.id}/image_1920/250x250"
+                                                                         class="d-block w-100" alt="..."/>
+                                                                </div>
+                                                            </t>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title text-primary"><t
+                                                                t-esc="solution.name"/></h5>
+                                                        <p class="card-text"><t
+                                                                t-esc="solution.long_description"/></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="oe_structure oe_empty" id="oe_structure_solution_search_4"/>
+            </t>
+        </template>
+
+
+        <template id="papers_view">
+            <t t-call="website.layout">
+                <div class="oe_structure oe_empty" id="oe_structure_solution_search_1"/>
+                <div class="s_solution_search">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <t t-foreach="categories" t-as="category">
+                                    <div class="panel panel-default">
+                                        <!-- display the tags of the category as pills -->
+                                        <div class="panel-body">
+                                            <ul class="list-group list-group-horizontal py-4">
+                                                <t t-foreach="category.tag_ids" t-as="tag">
+                                                    <t t-if="tag in tags">
+                                                        <li t-att-data-tag="tag.id" t-att-href="'#'"
+                                                            class="tag-filter list-group-item"
+                                                            role="button">
+                                                            <t t-esc="tag.name"/>
+                                                        </li>
+                                                    </t>
+                                                </t>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 2.1em">
+                                <div class="row" id="shuffle-container">
+                                    <t t-foreach="solutions" t-as="solution">
+                                        <div class="col-md-12 solution-item" t-att-data-tags="solution.tags.ids">
+                                            <div class="card mb-5 bg-white" style="max-height: 250px; min-height: 250px; overflow: hidden;">
+                                                <div class="row g-0">
+                                                    <div class="col-md-2 d-flex align-items-center justify-content-center ">
+                                                        <!-- t-att-src is base64 encoded image -->
+                                                        <img t-att-alt="solution.name"
+                                                             t-attf-src="/web/image/solution_search.solution/#{solution.id}/image_1920/250x250"
+                                                             class="card-img-top img-responsive" width="250" height="250"
+                                                             t-if="solution.image_1920"
+                                                             style="align-self: flex-start;"/>
+                                                        <img t-att-alt="solution.name"
+                                                             t-att-src="solution.literature_image_url"
+                                                             class="card-img-top img-responsive" width="250" height="250"
+                                                             t-elif="solution.literature_image_url"
+                                                             style="align-self: flex-start;"/>
+                                                        <t t-else="">
+
+                                                        </t>
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="card-body">
+                                                            <h4><t t-esc="solution.name"/></h4>
+                                                            <span t-esc="solution.literature_title"/> (<span
+                                                                t-field="solution.literature_date"/>)<br/>
+                                                            <p t-esc="solution.literature_authors"/>
+                                                            <p class="card-text long-description">
+                                                                <t t-esc="solution.long_description" />
+                                                            </p>
+                                                        </div>
+                                                        <a t-att-href="solution.literature_url" class="stretched-link"
+                                                           target="_blank">
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <div class="col-md-6 js-shuffle-sizer"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <t t-foreach="solutions" t-as="solution">
+                            <div t-attf-id="solution#{solution.id}" class="modal fade"
+                                 role="dialog" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title"
+                                                t-att-id="'solutionModalLabel%s' % solution.id">
+                                                Solution
+                                                Details</h5>
+                                            <a class="close" data-bs-dismiss="modal"
+                                               aria-label="Close">
+                                                <i class="fa fa-close"/>
+                                            </a>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5 class="card-title text-primary"><t
+                                                    t-esc="solution.name"/></h5>
+                                            <p class="card-text"><t
+                                                    t-esc="solution.long_description"/></p>
+                                            <div t-if="solution.video" class="ratio ratio-16x9">
+                                                <iframe t-att-src="solution.video" controls="controls"
+                                                        class="w-100">
+                                                    Your browser does not support the video tag.
+                                                </iframe>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary"
+                                                    data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+                <div class="oe_structure oe_empty" id="oe_structure_solution_search_2"/>
+            </t>
+        </template>
+    </data>
+</odoo>

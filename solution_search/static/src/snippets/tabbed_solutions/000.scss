@@ -1,0 +1,17 @@
+.solution_tab_snippet {
+  .nav-tabs, .nav-links {
+    border-bottom: 0;
+
+    .nav-link {
+
+      border: 0;
+      color: #767676;
+      border-bottom: 1px solid #767676;
+
+      &.active {
+        color: map-get($theme-colors, 'primary');
+        border-bottom: 1px solid map-get($theme-colors, 'primary');
+      }
+    }
+  }
+}

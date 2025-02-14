@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <template id="solution_tags_tabbed_view" name="Solutions Tabbed">
+            <!-- Solution tabbed view -->
+            <section class="solution_tab_snippet pt40 pb40 o_not_editable" contenteditable="false">
+                <div class="container">
+                    <ul class="nav nav-tabs w-100 justify-content-center mb-5">
+                        <li t-foreach="data" t-as="tab" class="nav-item">
+                            <a t-attf-class="nav-link #{'active' if tab_first else ''}" t-attf-id="#{tab['id']}-tab"
+                               data-bs-toggle="tab" t-attf-data-bs-target="#tab-#{tab['id']}" type="button"
+                               role="tab"><t
+                                    t-esc="tab['name']"/></a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div t-foreach="data" t-as="tab"
+                             t-attf-class="tab-pane fade show #{'active' if tab_first else ''}"
+                             t-attf-id="tab-#{tab['id']}" role="tabpanel">
+                            <div class="row mb-3">
+                                <div class="col-lg-12">
+                                    <h2><t t-esc="tab['name']"/></h2>
+                                    <div class="lead"><t t-esc="tab['description']"/></div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <!-- vertical bootstrap tab navigation (tab.solutions) which link to tab content in next column -->
+                                    <ul class="nav nav-links flex-column">
+                                        <li t-foreach="tab['solutions']" t-as="solution" class="nav-item mb-3">
+                                            <a t-attf-class="nav-link #{'active' if solution_first else ''}"
+                                               t-attf-id="#{solution['id']}-solution" data-bs-toggle="tab"
+                                               t-attf-data-bs-target="#solution-#{solution['id']}" type="button"
+                                               role="tab"><t
+                                                    t-esc="solution['name']"/></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-10">
+                                    <!-- tab content -->
+                                    <div class="tab-content">
+                                        <div t-foreach="tab['solutions']" t-as="solution"
+                                             t-attf-class="tab-pane fade show #{'active' if solution_first else ''}"
+                                             t-attf-id="solution-#{solution['id']}" role="tabpanel">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <h3><t t-esc="solution['name']"/></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <t t-esc="solution['long_description']"/>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <div class="ratio ratio-16x9">
+                                                                <iframe t-att-src="solution['video']"
+                                                                        controls="controls">
+                                                                    Your browser does not support the video tag.
+                                                                </iframe>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </template>
+
+        <template id="s_dynamic_snippet_solutions_tabbed_template_options"
+                  inherit_id="website.snippet_options">
+            <xpath expr="." position="inside">
+                <div data-selector=".solution_tab_snippet">
+                    <we-many2many string="Tags"
+                                  data-name="tags"
+                                  data-attribute-name="tags"
+                                  data-no-preview="true"
+                                  data-model="solution_search.tag"
+                                  data-allow-delete="true"
+                                  data-fakem2m="true"
+                                  data-select-data-attribute=""/>
+                </div>
+            </xpath>
+        </template>
+        <template id="external_snippets" inherit_id="website.snippets" priority="8">
+            <xpath expr="//div[@id='snippet_effect']//t[@t-snippet][last()]" position="after">
+                <t t-snippet="solution_search.solution_tags_tabbed_view"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>
+
